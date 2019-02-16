@@ -1,0 +1,11 @@
+{
+  "Id": "Subnautica_No_Hull",
+  "DisplayName": "No Hull",
+  "Author": "Rube200 / Spirits",
+  "Version": "1.0.1",
+  "Requires": [ "0Harmony.dll" ],
+  "Enable": true,
+  "Game": "Subnautica",
+  "AssemblyName": "Subnautica_No_Hull.dll",
+  "EntryMethod": "Subnautica_No_Hull.Main.Initialize"
+}
