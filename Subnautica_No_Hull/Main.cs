@@ -1,25 +1,37 @@
-﻿using Harmony;
+﻿using Ryder;
 using System;
 using System.Reflection;
-using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 
 namespace Subnautica_No_Hull
 {
     public class Main
     {
+        public static MethodRedirection RedirectAwake { get; private set; } = null;
+        public static MethodRedirection RedirectStart { get; private set; } = null;
+
+
         public static void Initialize()
         {
-            HarmonyInstance.Create("Subnautica.Subnautica_No_Hull.mod").PatchAll(Assembly.GetExecutingAssembly());
-            DevConsole.disableConsole = false;
-            SceneManager.sceneLoaded += new UnityAction<Scene, LoadSceneMode>(OnSceneLoaded);
+            var MethodAwake = typeof(BaseHullStrength).GetMethod("Awake", BindingFlags.Instance | BindingFlags.NonPublic);
+            var MethodStart = typeof(BaseHullStrength).GetMethod("Start", BindingFlags.Instance | BindingFlags.NonPublic);
+            var MethodRedirect = typeof(Main).GetMethod("Redirect", BindingFlags.Instance | BindingFlags.NonPublic);
+
+
+            if (RedirectAwake != null)
+                RedirectAwake.Dispose();
+            RedirectAwake = Redirection.Redirect(MethodAwake, MethodRedirect);
+
+
+            if (RedirectStart != null)
+                RedirectStart.Dispose();
+            RedirectStart = Redirection.Redirect(MethodStart, MethodRedirect);
+
+
             Console.WriteLine("[No Hull] Loaded");
         }
 
-        private static void OnSceneLoaded(Scene Scene, LoadSceneMode mode)
-        {
-            if (Scene.name == "Aurora")
-                GameModeUtils.ActivateCheat(GameModeOption.NoPressure);
-        }
+#pragma warning disable IDE0051
+        private void Redirect() { }
+#pragma warning restore IDE0051
     }
 }
