@@ -3,9 +3,9 @@
   "DisplayName": "No Hull",
   "Author": "Rube200 / Spirits",
   "Version": "1.0.1",
-  "Requires": [ "Ryder.dll" ],
+  "Requires": [ "0Harmony.dll" ],
   "Enable": true,
   "Game": "Both",
-  "AssemblyName": "Subnautica_No_Hull.dll",
-  "EntryMethod": "Subnautica_No_Hull.Main.Initialize"
+  "AssemblyName": "RG.Subnautica_No_Hull.dll",
+  "EntryMethod": "RG.Subnautica_No_Hull.Main.Initialize"
 }
